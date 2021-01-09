@@ -8,7 +8,7 @@ module.exports = (app) => {
 
     /** Get All Workouts **/
     app.get("/api/workouts", (req, res) => {
-        db.Workout.find()
+        db.workout.find()
             .then(dbWorkouts => {
                 console.log("All dbWorkouts: ", dbWorkouts);
                 res.json(dbWorkouts);
@@ -23,7 +23,7 @@ module.exports = (app) => {
     // POST from createWorkout() in api.js
     app.post('/api/workouts', ({ body }, res) => {
         console.log("Incoming request /api/workouts: ", body);
-        db.Workout.create(body)
+        db.workout.create(body)
             .then(dbWorkout => {
                 console.log("New workout created: ", dbWorkout);
                 res.json(dbWorkout);
@@ -42,7 +42,7 @@ module.exports = (app) => {
         // new: true - always create a new one
         // findByIdAndUpdate() method returns the object that matched the condition before the update operation
 
-        db.Workout.findByIdAndUpdate(
+        db.workout.findByIdAndUpdate(
             { _id: req.params.id },
             { $push: { exercises: req.body } },
             function (err, result) {
