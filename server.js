@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb://localhost/workout',
+    process.env.MONGODB_URI || 'mongodb+srv://app-workout:us0UBxkVCeHV576x@mimikyu.nrjen.mongodb.net/admin?replicaSet=Mimikyu-shard-0&readPreference=primary&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-1',
     {
     useNewUrlParser: true,
     useUnifiedTopology: true,
