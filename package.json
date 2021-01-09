@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/shelb-doc/new-years-fitness-tracker/issues"
   },
-  "homepage": "https://github.com/shelb-doc/new-years-fitness-tracker#readme"
+  "homepage": "https://github.com/shelb-doc/new-years-fitness-tracker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.11"
+  }
 }
