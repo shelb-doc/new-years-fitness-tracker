@@ -1,14 +1,25 @@
+// If lastWorkout exists, set exercise link to lastWorkout._id
+// Otherwise, display NoWorkoutText
 async function initWorkout() {
   const lastWorkout = await API.getLastWorkout();
-  console.log("Last workout:", lastWorkout);
+  console.log("Last workout (workout.js):", lastWorkout);
+  
   if (lastWorkout) {
     document
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
+    // Calculate totalDuration from duration in exercises array:
+    let calcDuration = 0;
+    lastWorkout.exercises.forEach(exercise => {
+      calcDuration += exercise.duration;
+      console.log(calcDuration);
+    });
+    
+    // For the workoutSummary, display: date, total duration, number of exercises, total weight, total sets, total reps, and total distance by tallying exercises
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
+      totalDuration: calcDuration,
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
@@ -17,9 +28,10 @@ async function initWorkout() {
   } else {
     renderNoWorkoutText()
   }
-}
+};
 
 function tallyExercises(exercises) {
+  // reduce() array to single value and execute provided function for each value of the array
   const tallied = exercises.reduce((acc, curr) => {
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
@@ -34,14 +46,7 @@ function tallyExercises(exercises) {
 }
 
 function formatDate(date) {
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  };
-
-  return new Date(date).toLocaleDateString(options);
+  return moment(date).format('lll');
 }
 
 function renderWorkoutSummary(summary) {
