@@ -1,1 +1,1 @@
-# new-years-fitness-tracker
+# New Years Fitness Tracker
